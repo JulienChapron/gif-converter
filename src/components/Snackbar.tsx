@@ -1,13 +1,21 @@
 import { Snackbar, Alert } from "@mui/material";
 function Header(props) {
-    return (
+  return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={props.openSnackbar.open}
       autoHideDuration={4000}
-      onClose={() => props.openSnackbar.open = false}
+      onClose={() =>
+        props.setOpenSnackbar({
+          open: false,
+          severity: "success",
+          message: "no message",
+        })
+      }
     >
-      <Alert severity={props.openSnackbar.severity} sx={{ width: "100%" }}>{props.openSnackbar.message}</Alert>
+      <Alert severity={props.openSnackbar.severity} sx={{ width: "100%" }}>
+        {props.openSnackbar.message}
+      </Alert>
     </Snackbar>
   );
 }
