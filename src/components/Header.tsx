@@ -3,9 +3,10 @@ function Header() {
   return (
     <AppBar color="transparent" position="static">
       <Toolbar>
-        <Typography variant="h6" color="inherit" component="div">
+        <Typography sx={{ flexGrow: 1 }} variant="h6" color="inherit" component="div">
           gif-converter
         </Typography>
+        <Typography variant="h6">{process.env.REACT_APP_VERSION}</Typography>
       </Toolbar>
     </AppBar>
   );

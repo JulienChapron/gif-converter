@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Grid, Button, LinearProgress } from "@mui/material";
+import { Grid, Button, LinearProgress, Typography } from "@mui/material";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import AutoFixHigh from "@mui/icons-material/AutoFixHigh";
+import Download from "@mui/icons-material/Download";
 
 const ffmpeg = createFFmpeg({
   corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
@@ -11,7 +12,7 @@ function ConvertToGifAndDownload(props) {
   const [loaderGif, setLoaderGif] = useState(false);
   const [gif, setGif] = useState("");
   const convertToGif = async () => {
-    setLoaderGif(true)
+    setLoaderGif(true);
     await ffmpeg.load();
     ffmpeg.FS("writeFile", "video1.webm", await fetchFile(props.urlVideo));
     await ffmpeg.run("-i", "video1.webm", "-t", "8", "output.gif");
@@ -20,7 +21,7 @@ function ConvertToGifAndDownload(props) {
       new Blob([data.buffer], { type: "image/gif" })
     );
     setGif(url);
-    setLoaderGif(false)
+    setLoaderGif(false);
   };
   return (
     <Grid container>
@@ -28,14 +29,17 @@ function ConvertToGifAndDownload(props) {
         {!props.loaderVideo ? (
           props.urlVideo ? (
             <>
-              <p>Uploaded video</p>
+              <Typography sx={{ mb: 1 }} variant="h5">
+                Uploaded video
+              </Typography>
               <video src={props.urlVideo} width="100%" controls></video>
               <Button
                 onClick={() => convertToGif()}
                 variant="contained"
                 sx={{ mx: "auto", mt: 2 }}
               >
-                <AutoFixHigh />convert
+                <AutoFixHigh />
+                convert
               </Button>
             </>
           ) : null
@@ -47,15 +51,18 @@ function ConvertToGifAndDownload(props) {
         {!loaderGif ? (
           gif ? (
             <>
-              <p>Converted .gif file</p>
+              <Typography sx={{ mb: 1 }} variant="h5">Converted .gif file</Typography>
               <img alt="gif" src={gif} width="100%"></img>
-              <Button
-                onClick={() => convertToGif()}
-                variant="contained"
-                sx={{ mx: "auto", mt: 2 }}
+              <a
+                href={gif}
+                download="file.gif"
+                style={{ textDecoration: "none" }}
               >
-                download
-              </Button>
+                <Button variant="contained" sx={{ mx: "auto", mt: 2 }}>
+                  <Download />
+                  download
+                </Button>
+              </a>
             </>
           ) : null
         ) : (
