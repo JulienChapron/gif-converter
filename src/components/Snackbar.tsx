@@ -4,7 +4,7 @@ function Header(props) {
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={props.openSnackbar.open}
-      autoHideDuration={4000}
+      autoHideDuration={8000}
       onClose={() =>
         props.setOpenSnackbar({
           open: false,

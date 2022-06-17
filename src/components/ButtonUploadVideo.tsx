@@ -1,5 +1,5 @@
 import CloudUpload from "@mui/icons-material/CloudUpload";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 function ButtonUploadVideo(props) {
@@ -10,6 +10,15 @@ function ButtonUploadVideo(props) {
     try {
       props.setLoaderVideo(true);
       const file = e.target.files[0];
+      if (file.size > 10000000) {
+        props.setOpenSnackbar({
+          open: true,
+          severity: "error",
+          message: "Error: video > 1mo",
+        });
+        props.setLoaderVideo(false);
+        return;
+      }
       props.setFileSize((file.size / 1024).toFixed(2));
       props.setUrlVideo(URL.createObjectURL(file));
       props.setOpenSnackbar({
@@ -29,6 +38,7 @@ function ButtonUploadVideo(props) {
   };
   return (
     <Container sx={{ textAlign: "center", mb: 5 }}>
+      <Typography>Upload a video (maximum: 1mo)</Typography>
       <label htmlFor="contained-button-file">
         <Input
           accept="video/*"
@@ -36,8 +46,13 @@ function ButtonUploadVideo(props) {
           type="file"
           onChange={(e) => uploadVideo(e)}
         />
-        <Button sx={{ mt: 1 }} size="large" variant="contained" component="span">
-          <CloudUpload sx={{fontSize:48, mr:1}}/>
+        <Button
+          sx={{ mt: 1 }}
+          size="large"
+          variant="contained"
+          component="span"
+        >
+          <CloudUpload sx={{ fontSize: 48, mr: 1 }} />
           Upload a video ...
         </Button>
       </label>
