@@ -37,7 +37,9 @@ git clone https://github.com/JulienChapron/gif-converter.git
 
 Start the app:
 
-```cd gif-converter```
+```bash
+cd gif-converter
+```
 
 ```bash
 yarn install && docker build -t covid19-leaflet-docker .
