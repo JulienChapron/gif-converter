@@ -18,7 +18,7 @@ Application to convert videos to gif using web assembly
 ![image](https://img.shields.io/badge/mui-FFFFFF?style=for-the-badge&logo=mui&logoColor=blue)
 ![image](https://img.shields.io/badge/web_assembly-FFFFFF?style=for-the-badge&logo=webassembly&logoColor=purple)
 
-## Installation and run the app 🚀🚀
+## Installation
 ### First step
 
 Create a .env file, generate a token here https://developer.chrome.com/origintrials/#/trials/active to autorize SharedArrayBuffers in non-isolated page in Chrome and add this code in .env file:
