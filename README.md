@@ -42,7 +42,7 @@ cd gif-converter
 ```
 
 ```bash
-yarn install && docker build -t covid19-leaflet-docker .
+yarn install && docker build -t gif-converter .
 ```
 
 
