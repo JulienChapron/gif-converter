@@ -1,4 +1,5 @@
-import React, { Snackbar, Alert } from "@mui/material";
+import React from 'react';
+import { Snackbar, Alert } from "@mui/material";
 function Header(props) {
   return (
     <Snackbar
