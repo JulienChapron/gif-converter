@@ -21,6 +21,26 @@ Application to convert videos to gif using web assembly
 ## Installation and run the app 🚀🚀
 ### First step
 
-Create a .env file, generate a token here https://developer.chrome.com/origintrials/#/trials/active to autorize SharedArrayBuffers in non-isolated page in Chrome and add this:
+Create a .env file, generate a token here https://developer.chrome.com/origintrials/#/trials/active to autorize SharedArrayBuffers in non-isolated page in Chrome and add this code in .env file:
 
-```REACT_APP_ORIGIN_TRIALS=YOURTOKEN```
+```env
+REACT_APP_ORIGIN_TRIALS=YOURTOKEN
+```
+
+### Download and start your app
+
+Download the app:
+
+```bash
+git clone https://github.com/JulienChapron/gif-converter.git
+```
+
+Start the app:
+
+```cd gif-converter```
+
+```bash
+yarn install && docker build -t covid19-leaflet-docker .
+```
+
+
