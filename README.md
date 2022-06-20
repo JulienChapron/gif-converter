@@ -7,6 +7,8 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/JulienChapron/gif-converter.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JulienChapron/gif-converter/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/JulienChapron/gif-converter.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/JulienChapron/gif-converter/context:javascript)
 ![Known Vulnerabilities](https://snyk.io/test/github/JulienChapron/gif-converter/badge.svg)
+[![Code Climate](https://codeclimate.com/github/JulienChapron/gif-converter/badges/gpa.svg)](https://codeclimate.com/github/JulienChapron/gif-converter)
+
 
 ## Project Description
 Application to convert videos to gif using web assembly
