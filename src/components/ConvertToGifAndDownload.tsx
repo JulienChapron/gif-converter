@@ -4,7 +4,6 @@ import {
   Button,
   LinearProgress,
   Typography,
-  InputAdornment,
   TextField,
 } from "@mui/material";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
@@ -19,11 +18,20 @@ function ConvertToGifAndDownload(props) {
   const [loaderGif, setLoaderGif] = useState(false);
   const [gif, setGif] = useState("");
   const [duration, setDuration] = useState(0);
+  const [nbFrames, setNbFrames] = useState(0);
   const convertToGif = async () => {
     setLoaderGif(true);
     await ffmpeg.load();
     ffmpeg.FS("writeFile", "video1.webm", await fetchFile(props.urlVideo));
-    await ffmpeg.run("-i", "video1.webm", "-t", `${duration}`, "output.gif");
+    await ffmpeg.run(
+      "-i",
+      "video1.webm",
+      "-t",
+      `${duration}`,
+      "-vframes",
+      `${nbFrames}`,
+      "output.gif"
+    );
     const data = ffmpeg.FS("readFile", "output.gif");
     const url = URL.createObjectURL(
       new Blob([data.buffer], { type: "image/gif" })
@@ -35,10 +43,14 @@ function ConvertToGifAndDownload(props) {
     if (document.getElementById("myvid")) {
       const myvid = document.getElementById("myvid");
       setDuration(Math.floor(myvid.duration));
+      setNbFrames(Math.floor(myvid.duration) * 2);
     }
   };
   const onChangeDuration = (e) => {
     setDuration(e.target.value);
+  };
+  const onChangeNbFrames = (e) => {
+    setNbFrames(e.target.value);
   };
   useEffect(() => {
     getOptionsVideo();
@@ -59,7 +71,12 @@ function ConvertToGifAndDownload(props) {
                 controls
               ></video>
               <TextField
-                sx={{ mt: 2 }}
+                required
+                defaultValue={0}
+                error={isNaN(duration)}
+                helperText={isNaN(duration) ? "Not a number" : " "}
+                type="number"
+                sx={{ mt: 1, width: "100px" }}
                 label="duration in seconds"
                 size="small"
                 value={duration}
@@ -68,15 +85,24 @@ function ConvertToGifAndDownload(props) {
                 }}
               />
               <TextField
-                sx={{ ml: 1, mt: 2 }}
-                label="duration in seconds"
+                required
+                defaultValue={0}
+                error={isNaN(nbFrames)}
+                helperText={isNaN(nbFrames) ? "Not a number" : " "}
+                type="number"
+                sx={{ ml: 1, mt: 1, width: "100px" }}
+                label="number of frames"
                 size="small"
-                value={duration}
+                value={nbFrames}
+                onChange={(e) => {
+                  onChangeNbFrames(e);
+                }}
               />
               <Button
+                disabled={nbFrames && duration ? false : true}
                 onClick={() => convertToGif()}
                 variant="contained"
-                sx={{ mx: "auto", mt: 2 }}
+                sx={{ mt: 1, ml: 1 }}
               >
                 <AutoFixHigh />
                 convert
@@ -97,7 +123,7 @@ function ConvertToGifAndDownload(props) {
               <img alt="gif" src={gif} width="100%"></img>
               <a
                 href={gif}
-                download="file.gif"
+                download={props.fileName + ".gif"}
                 style={{ textDecoration: "none" }}
               >
                 <Button variant="contained" sx={{ mx: "auto", mt: 2 }}>

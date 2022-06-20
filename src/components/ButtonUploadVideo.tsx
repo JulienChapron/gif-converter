@@ -19,6 +19,7 @@ function ButtonUploadVideo(props) {
         props.setLoaderVideo(false);
         return;
       }
+      props.setFileName(file.name)
       props.setFileSize((file.size / 1024).toFixed(2));
       props.setUrlVideo(URL.createObjectURL(file));
       props.setOpenSnackbar({

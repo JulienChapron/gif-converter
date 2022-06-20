@@ -6,6 +6,7 @@ import ConvertToGifAndDownload from "./components/ConvertToGifAndDownload.tsx";
 import { Box } from "@mui/material";
 
 function App() {
+  const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("");
   const [loaderVideo, setLoaderVideo] = useState(false);
   const [urlVideo, setUrlVideo] = useState("");
@@ -31,10 +32,12 @@ function App() {
           loaderVideo={loaderVideo}
           urlVideo={urlVideo}
           fileSize={fileSize}
+          fileName={fileName}
         />
 
         {urlVideo ? null : (
           <ButtonUploadVideo
+            setFileName={setFileName}
             setFileSize={setFileSize}
             setLoaderVideo={setLoaderVideo}
             setUrlVideo={setUrlVideo}
